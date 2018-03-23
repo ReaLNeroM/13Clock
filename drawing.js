@@ -26,7 +26,8 @@ function draw(){
 	currTime = new Date();
 	var milliseconds = currTime % 43200000; // 12 hour clock
 
-	drawCircle(radius);
+	drawCircle(radius, 2);
+	drawNotches(radius, 1.5, 20);
 	drawHand(6, radius / 5, milliseconds / 43200000);
 	drawHand(4, radius / 1.4, milliseconds % minutesPerTurn / minutesPerTurn);
 	ctx.strokeStyle = "#FF0000";
@@ -34,18 +35,37 @@ function draw(){
 	ctx.strokeStyle = "#000000";
 }
 
-function drawCircle(radius){
+function drawCircle(radius, width){
 	ctx.beginPath();
-	ctx.lineWidth = 2;
+	ctx.lineWidth = width;
 	ctx.arc(0, 0, radius, 0, 2 * Math.PI);
 	ctx.stroke();
 }
 
-function drawHand(width, length, rotation){
-	ctx.beginPath();
+function drawNotches(radius, width, notchLength){
 	ctx.lineWidth = width;
-	ctx.rotate(rotation * fullRotation);
+	ctx.lineCap = "butt";
+
+	for (var i = 0; i < 12; i++){
+		ctx.beginPath();
+		ctx.moveTo(0, 0);
+
+		ctx.rotate( i / 12 * fullRotation);
+
+		ctx.moveTo(0, (radius - notchLength));
+		ctx.lineTo(0, radius);
+		ctx.stroke();
+
+		ctx.rotate(-i / 12 * fullRotation);
+	}
+}
+
+function drawHand(width, length, rotation){
+	ctx.lineWidth = width;
 	ctx.lineCap = "round";
+
+	ctx.beginPath();
+	ctx.rotate(rotation * fullRotation);
 	ctx.moveTo(0, 0);
 	ctx.lineTo(0, -length);
 	ctx.rotate(-rotation * fullRotation);
