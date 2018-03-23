@@ -15,7 +15,7 @@ var FPS = 60;
 setInterval(draw, 1000.0 / FPS);
 
 // var start = new Date();
-// function getMsSinceMidnight(d) {
+// function getMsSinceProgramStart(d) {
 // 	return d - start;
 // }
 
