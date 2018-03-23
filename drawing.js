@@ -36,8 +36,11 @@ function draw(){
 }
 
 function drawCircle(radius, width){
-	ctx.beginPath();
 	ctx.lineWidth = width;
+	ctx.lineCap = "round";
+
+	ctx.beginPath();
+	
 	ctx.arc(0, 0, radius, 0, 2 * Math.PI);
 	ctx.stroke();
 }
@@ -65,9 +68,12 @@ function drawHand(width, length, rotation){
 	ctx.lineCap = "round";
 
 	ctx.beginPath();
-	ctx.rotate(rotation * fullRotation);
 	ctx.moveTo(0, 0);
+
+	ctx.rotate(rotation * fullRotation);
+	
 	ctx.lineTo(0, -length);
-	ctx.rotate(-rotation * fullRotation);
 	ctx.stroke();
+
+	ctx.rotate(-rotation * fullRotation);
 }
