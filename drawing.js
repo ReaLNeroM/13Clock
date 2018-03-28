@@ -14,17 +14,23 @@ var secondsPerTurn = 43200000 / 733.0; // 12 * (60 + 1) + 1
 var FPS = 60;
 setInterval(draw, 1000.0 / FPS);
 
-// var start = new Date();
-// function getMsSinceProgramStart(d) {
-// 	return d - start;
-// }
+
+function getMsSinceMidnight(d) {
+	var start = new Date();
+	start = new Date(start.getFullYear(),
+						start.getMonth(),
+						start.getDate() ,
+						0, 0, 0);
+	
+	return d - start;
+}
 
 function draw(){
 	ctx.fillStyle = '#fff';
 	ctx.fillRect(-radius, -radius, canvas.width, canvas.height);
 
 	currTime = new Date();
-	var milliseconds = currTime % 43200000; // 12 hour clock
+	var milliseconds = getMsSinceMidnight(currTime) % 43200000; // 12 hour clock
 
 	drawCircle(radius, 2);
 	drawNotches(radius, 1.5, 20);
